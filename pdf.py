@@ -1,34 +1,44 @@
-#!/usr/bin/env python
-
+import fpdf
+from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
-# Request for title
-title = input("Enter title: ")
-
 # Create a new PDF document
-pdf = canvas.Canvas("document.pdf", pagesize=letter)
-pdf.setFillColorRGB(0 ,1, 0)
-pdf.rect(5,5,652,792, fill=1)
-pdf.setTitle("Background")
+pdf = canvas.Canvas("example.pdf", pagesize=letter)
 
-# Draw the title with a red background
-pdf.setFillColorRGB(1, 0, 0)
-pdf.setFont("Helvetica-Bold", 24)
-pdf.drawCentredString(300, 750, title)
+# Request for title
+# title = input("Enter title: ")
+
+# Set the background color of the header
+header_color = colors.HexColor("#ff0000")
+pdf.setFillColor(header_color)
+pdf.rect(0, letter[1]-50, letter[0], 50, fill=True, stroke=False)
+
+# Set the background color of the body
+body_color = colors.HexColor("#00FF00")
+pdf.setFillColor(body_color)
+pdf.rect(0, 0, letter[0], letter[1]-50, fill=True, stroke=False)
+
+# Add text to the header
+pdf.setFont("Helvetica-Bold", 14)
+pdf.setFillColorRGB(0, 0, 0)
+pdf.drawString(36, letter[1]-25, "Cohort 5")
 
 # Request for subject
-subject = input("Enter subject: ")
+# subject = input("Enter subject: ")
 
-# Draw the subject with a red background
-pdf.setFillColorRGB(1, 0, 0)
-pdf.setFont("Helvetica", 18)
-pdf.drawCentredString(300, 700, subject)
-
-# Generate the body with a green background
+# Add text to the subject
+pdf.setFont("Helvetica-Bold", 14)
 pdf.setFillColorRGB(0, 0, 0)
+pdf.drawString(36, letter[1]-45, "Assignment")
+
+# Add text to the body
 pdf.setFont("Helvetica", 12)
-pdf.drawString(50, 650, "This is the body of the document with a green background.")
+pdf.setFillColorRGB(0, 0, 0)
+pdf.drawString(36, letter[1]-75, "Body text")
 
 # Save the PDF document
 pdf.save()
+
+
+
